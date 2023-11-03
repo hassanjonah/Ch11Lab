@@ -1,0 +1,53 @@
+﻿@model UserTickets
+@{
+    ViewData["Title"] = "User Tickets Page";
+}
+
+@section Scripts {
+<script>
+    function clearAndHide(i) {
+        document.getElementById(`Tickets_${i}_`).value = '';
+        document.getElementById(`item${i}`).classList.add('d-none');
+    }
+
+    function addNew() {
+        const ticketList = document.getElementById('ticketList');
+        const i = ticketList.childElementCount;
+
+        const elemInput = document.createElement('input');
+        elemInput.id = `Tickets_${i}_`;
+        elemInput.name = `Tickets[${i}]`;
+        elemInput.className = 'form-control d-inline w-75';
+
+        const elem = document.createElement("li");
+        elem.id = `input${i}`;
+        elem.className = 'list-group-item'
+        elem.appendChild(elemInput)
+
+        ticketList.appendChild(elem);
+    }
+</script>}
+
+<h3 class="h3">@Model.User.Email</h3>
+<form asp-action="ClearCookie" method="get">
+    <button type="submit" class="btn btn-primary">Clear Cookie</button>
+</form>
+
+<form asp-action="Index" method="post">
+    <div class="row mt-2">
+        <div class="col-6">
+            <a class="btn btn-secondary " onclick="addNew()">Add</a>
+        </div>
+    </div>
+
+    <ul id="ticketList" class="list-group mt-2 w-50">
+    @for (int i = 0; i < Model.Tickets.Count; ++i) {
+        <li id="item@(i)" class="list-group-item">
+            <input asp-for="Tickets[i]" type="text" class="form-control d-inline w-75" />
+            <a class="btn btn-danger btn-sm" onclick="clearAndHide(@(i))">Remove</a>
+        </li>
+    }
+    </ul>
+
+    <button type="submit" class="btn btn-primary mt-2">Save</button>
+</form>

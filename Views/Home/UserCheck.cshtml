@@ -1,0 +1,27 @@
+﻿@model User
+@{
+    ViewData["Title"] = "User Check Page";
+}
+
+
+
+<form method="post">
+    <div class="row mt-2">
+        <div class="col-4">
+            <label asp-for="Email" class="form-label"></label>
+            <input asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-4">
+            <label asp-for="Phone" class="form-label"></label>
+            <input asp-for="Phone" class="form-control" />
+            <span asp-validation-for="Phone" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="mt-2">
+        <button type="submit" class="btn btn-primary">New User</button>
+    </div>
+</form>
